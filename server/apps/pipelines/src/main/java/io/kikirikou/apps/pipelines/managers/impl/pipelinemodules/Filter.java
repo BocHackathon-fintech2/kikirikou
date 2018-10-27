@@ -17,9 +17,10 @@ public class Filter implements PipelineProcessor {
 
     @Override
     public Stream<JSONObject> process(Stream<JSONObject> stream, JSONObject config) {
-        String column = config.keys().iterator().next();
-        String filter = config.getString(column);
+        String column = config.getString("column");
+        String op = config.getString("op");
+        Object val = config.get("value");
 
-        return stream.filter(jsonObject -> filterManager.fitler(filter,JsonUtils.flatten(jsonObject).get(column)));
+        return stream.filter(jsonObject -> filterManager.fitler(op, val, JsonUtils.flatten(jsonObject).get(column)));
     }
 }

@@ -13,8 +13,7 @@ public class FilterManagerImpl implements FilterManager {
     }
 
     @Override
-    public boolean fitler(String filter, Object value) {
-        String[] parts = filter.split(":");
-        return configuration.get(parts[0]).apply(parts[1],value);
+    public boolean fitler(String filter, Object filterValue, Object value) {
+        return configuration.get(filter).apply(filterValue,value);
     }
 }
