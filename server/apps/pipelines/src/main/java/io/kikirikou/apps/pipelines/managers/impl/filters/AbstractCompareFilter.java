@@ -1,10 +1,9 @@
 package io.kikirikou.apps.pipelines.managers.impl.filters;
 
-import java.math.BigDecimal;
-
+import io.kikirikou.apps.pipelines.other.FilterProcessor;
 import org.apache.tapestry5.ioc.services.TypeCoercer;
 
-import io.kikirikou.apps.pipelines.other.FilterProcessor;
+import java.math.BigDecimal;
 
 public abstract class AbstractCompareFilter implements FilterProcessor {
 	
