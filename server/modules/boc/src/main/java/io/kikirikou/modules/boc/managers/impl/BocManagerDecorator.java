@@ -1,5 +1,6 @@
-package io.kikirikou.modules.boc.managers.decl;
+package io.kikirikou.modules.boc.managers.impl;
 
+import io.kikirikou.modules.boc.managers.decl.BocManager;
 import io.kikirikou.modules.persistence.managers.decl.QueryFactoryProvider;
 import io.kikirikou.modules.persistence.other.CustomDSLContext;
 import org.apache.tapestry5.json.JSONObject;

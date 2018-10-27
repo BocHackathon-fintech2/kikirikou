@@ -2,7 +2,7 @@ package io.kikirikou.modules.boc.modules;
 
 
 import io.kikirikou.modules.boc.managers.decl.BocManager;
-import io.kikirikou.modules.boc.managers.decl.BocManagerDecorator;
+import io.kikirikou.modules.boc.managers.impl.BocManagerDecorator;
 import io.kikirikou.modules.boc.managers.impl.BocManagerImpl;
 import io.kikirikou.modules.boc.other.BocSymbolConstants;
 import io.kikirikou.modules.persistence.managers.decl.QueryFactoryProvider;

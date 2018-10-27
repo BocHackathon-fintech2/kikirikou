@@ -37,7 +37,7 @@ public class StringTable implements PipelineProcessor {
 
         String value = collect.stream().
                 map(strings -> IntStream.range(0, strings.size()).
-                        mapToObj(i -> String.format("%" + ints[i] + "s", strings.get(i))).
+                        mapToObj(i -> String.format("%" + (-ints[i]) + "s", strings.get(i))).
                         collect(Collectors.joining(" | "))).
                 collect(Collectors.joining("\n"));
 
