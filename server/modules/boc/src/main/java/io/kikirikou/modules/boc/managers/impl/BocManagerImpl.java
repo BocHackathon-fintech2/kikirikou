@@ -5,7 +5,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import io.kikirikou.modules.boc.managers.decl.BocManager;
 import org.apache.tapestry5.ioc.annotations.Symbol;
@@ -43,10 +46,10 @@ public class BocManagerImpl implements BocManager {
 		df = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	}
 
-	public Optional<JSONArray> getStatement(String accountId, String token,
-											 String subscriptionId,
-											 LocalDate from,
-											 LocalDate to) {
+	public Optional<Collection<JSONObject>> getStatement(String accountId, String token,
+														 String subscriptionId,
+														 LocalDate from,
+														 LocalDate to) {
 
 		String url = this.baseUrl + "/v1/accounts/" + accountId + "/statement";
 
@@ -71,7 +74,12 @@ public class BocManagerImpl implements BocManager {
 
 		try (Response res =  this.httpClient.newCall(req).execute()) {
 			if (res.isSuccessful()) {
-				return Optional.of(new JSONArray(res.body().string()));
+				return Optional.of(new JSONArray(res.body().string()).
+						getJSONObject(0).
+						getJSONArray("transaction").
+						toList().
+						stream().
+						map(o -> (JSONObject) o).collect(Collectors.toList()));
 			} else {
 				log.error("Statement request not successful. Code: {}", res.code());
 				return Optional.empty();

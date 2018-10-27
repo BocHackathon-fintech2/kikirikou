@@ -4,6 +4,7 @@ import io.kikirikou.apps.pipelines.other.PipelineProcessor;
 import io.kikirikou.modules.boc.managers.decl.BocManager;
 import org.apache.tapestry5.json.JSONObject;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.stream.Stream;
 
 public class Statement implements PipelineProcessor {
@@ -22,8 +23,7 @@ public class Statement implements PipelineProcessor {
         String subscriptionId = config.getString("subscriptionId");
 
         Stream<JSONObject> transactionStream = bocManager.getStatement(account, token, subscriptionId, from, to).
-                map(objects -> objects.getJSONObject(0).getJSONArray("transaction").toList().stream().
-                        map(o -> (JSONObject) o)).
+                map(Collection::stream).
                 orElseThrow(IllegalAccessError::new);
 
         return Stream.concat(

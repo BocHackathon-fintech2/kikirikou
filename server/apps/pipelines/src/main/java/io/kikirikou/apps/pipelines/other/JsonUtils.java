@@ -20,7 +20,7 @@ public class JsonUtils {
             if(value.equals(JSONObject.NULL) || value instanceof JSONArray)
                 continue;
             else if(value instanceof JSONObject)
-                return flatten(resultKey + ".",(JSONObject) value,result);
+                flatten(resultKey + ".",(JSONObject) value,result);
             else
                 result.put(resultKey,value);
         }

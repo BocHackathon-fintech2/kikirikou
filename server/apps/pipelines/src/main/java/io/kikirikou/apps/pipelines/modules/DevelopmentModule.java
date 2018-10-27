@@ -3,7 +3,7 @@ package io.kikirikou.apps.pipelines.modules;
 
 import io.kikirikou.modules.boc.modules.BocModule;
 import io.kikirikou.modules.boc.other.BocSymbolConstants;
-import io.kikirkou.modules.resteasy.modules.RestEasyModule;
+import io.kikirikou.modules.resteasy.modules.RestEasyModule;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.ImportModule;

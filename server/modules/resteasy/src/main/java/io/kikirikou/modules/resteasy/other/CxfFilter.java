@@ -1,4 +1,4 @@
-package io.kikirkou.modules.resteasy.other;
+package io.kikirikou.modules.resteasy.other;
 
 import io.kikirikou.modules.common.other.DelegatingSymbolProvider;
 import org.apache.tapestry5.ioc.services.SymbolProvider;

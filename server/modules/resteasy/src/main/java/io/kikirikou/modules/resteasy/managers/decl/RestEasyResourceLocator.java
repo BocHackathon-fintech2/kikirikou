@@ -1,4 +1,4 @@
-package io.kikirkou.modules.resteasy.managers.decl;
+package io.kikirikou.modules.resteasy.managers.decl;
 
 import java.util.Collection;
 

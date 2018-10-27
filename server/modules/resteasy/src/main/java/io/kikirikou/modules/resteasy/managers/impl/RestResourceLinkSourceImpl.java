@@ -1,10 +1,10 @@
-package io.kikirkou.modules.resteasy.managers.impl;
+package io.kikirikou.modules.resteasy.managers.impl;
 
 import io.kikirikou.modules.common.utils.AssertUtils;
 import io.kikirikou.modules.jetty.managers.decl.BaseURLSource;
-import io.kikirkou.modules.resteasy.managers.decl.RestResourceLinkSource;
-import io.kikirkou.modules.resteasy.other.RestEasySymbolConstants;
-import io.kikirkou.modules.resteasy.other.RestResourceLinkBuilder;
+import io.kikirikou.modules.resteasy.managers.decl.RestResourceLinkSource;
+import io.kikirikou.modules.resteasy.other.RestEasySymbolConstants;
+import io.kikirikou.modules.resteasy.other.RestResourceLinkBuilder;
 import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.apache.tapestry5.ioc.services.TypeCoercer;
 

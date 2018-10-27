@@ -1,4 +1,4 @@
-package io.kikirkou.modules.resteasy.rest;
+package io.kikirikou.modules.resteasy.rest;
 
 import org.apache.tapestry5.ioc.services.TypeCoercer;
 import org.apache.tapestry5.json.JSONCollection;

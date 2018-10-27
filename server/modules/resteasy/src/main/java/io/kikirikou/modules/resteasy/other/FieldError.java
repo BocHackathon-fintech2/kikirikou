@@ -1,4 +1,4 @@
-package io.kikirkou.modules.resteasy.other;
+package io.kikirikou.modules.resteasy.other;
 
 import org.apache.tapestry5.ioc.internal.util.CollectionFactory;
 

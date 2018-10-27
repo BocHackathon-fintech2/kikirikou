@@ -1,4 +1,4 @@
-package io.kikirkou.modules.resteasy.modules;
+package io.kikirikou.modules.resteasy.modules;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -6,14 +6,14 @@ import io.kikirikou.modules.common.other.CommonSymbolConstants;
 import io.kikirikou.modules.jetty.managers.decl.JettyManager;
 import io.kikirikou.modules.jetty.modules.JettyModule;
 import io.kikirikou.modules.jetty.other.JettyHandlerCustomizer;
-import io.kikirkou.modules.resteasy.managers.decl.RestEasyResourceLocator;
-import io.kikirkou.modules.resteasy.managers.decl.RestResourceLinkSource;
-import io.kikirkou.modules.resteasy.managers.impl.JettyRestEasyCustomizer;
-import io.kikirkou.modules.resteasy.managers.impl.RestEasyResourceLocatorImpl;
-import io.kikirkou.modules.resteasy.managers.impl.RestResourceLinkSourceImpl;
-import io.kikirkou.modules.resteasy.other.RestEasySymbolConstants;
-import io.kikirkou.modules.resteasy.rest.GsonMessageBodyHandler;
-import io.kikirkou.modules.resteasy.rest.JSONCollectionProvider;
+import io.kikirikou.modules.resteasy.managers.decl.RestEasyResourceLocator;
+import io.kikirikou.modules.resteasy.managers.decl.RestResourceLinkSource;
+import io.kikirikou.modules.resteasy.managers.impl.JettyRestEasyCustomizer;
+import io.kikirikou.modules.resteasy.managers.impl.RestEasyResourceLocatorImpl;
+import io.kikirikou.modules.resteasy.managers.impl.RestResourceLinkSourceImpl;
+import io.kikirikou.modules.resteasy.other.RestEasySymbolConstants;
+import io.kikirikou.modules.resteasy.rest.GsonMessageBodyHandler;
+import io.kikirikou.modules.resteasy.rest.JSONCollectionProvider;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;

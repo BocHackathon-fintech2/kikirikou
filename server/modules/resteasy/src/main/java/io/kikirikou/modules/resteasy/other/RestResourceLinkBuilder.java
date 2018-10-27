@@ -1,4 +1,4 @@
-package io.kikirkou.modules.resteasy.other;
+package io.kikirikou.modules.resteasy.other;
 
 import io.kikirikou.modules.common.utils.AssertUtils;
 import io.kikirikou.modules.jetty.managers.decl.BaseURLSource;

@@ -1,11 +1,11 @@
-package io.kikirkou.modules.resteasy.managers.impl;
+package io.kikirikou.modules.resteasy.managers.impl;
 
 import io.kikirikou.modules.common.other.DelegatingSymbolProvider;
 import io.kikirikou.modules.common.other.SingleKeySymbolProvider;
 import io.kikirikou.modules.jetty.other.JettyHandlerCustomizer;
-import io.kikirkou.modules.resteasy.managers.decl.RestEasyResourceLocator;
-import io.kikirkou.modules.resteasy.other.CxfFilter;
-import io.kikirkou.modules.resteasy.other.RestEasySymbolConstants;
+import io.kikirikou.modules.resteasy.managers.decl.RestEasyResourceLocator;
+import io.kikirikou.modules.resteasy.other.CxfFilter;
+import io.kikirikou.modules.resteasy.other.RestEasySymbolConstants;
 import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.apache.tapestry5.ioc.services.SymbolProvider;
 import org.apache.tapestry5.ioc.services.SymbolSource;

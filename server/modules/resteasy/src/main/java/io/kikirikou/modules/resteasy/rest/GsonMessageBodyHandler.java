@@ -1,4 +1,4 @@
-package io.kikirkou.modules.resteasy.rest;
+package io.kikirikou.modules.resteasy.rest;
 
 import com.google.gson.Gson;
 import org.jboss.resteasy.spi.ApplicationException;

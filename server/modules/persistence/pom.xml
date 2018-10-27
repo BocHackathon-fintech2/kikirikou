@@ -97,13 +97,13 @@
                             <forcedTypes>
                                 <forcedType>
                                     <userType>org.apache.tapestry5.json.JSONObject</userType>
-                                    <binding>com.mysoft.upspackman.modules.persistence.other.bindings.PostgresJSONBinding</binding>
+                                    <binding>io.kikirikou.modules.persistence.other.bindings.PostgresJSONBinding</binding>
                                     <types>JSON+B?</types>
                                 </forcedType>
                             </forcedTypes>
                         </database>
                         <target>
-                            <packageName>com.mysoft.upspackman.modules.persistence.jooq</packageName>
+                            <packageName>io.kikirikou.modules.persistence.jooq</packageName>
                             <directory>target/generated-sources/java</directory>
                         </target>
                         <generate>

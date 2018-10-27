@@ -1,6 +1,6 @@
-package io.kikirkou.modules.resteasy.managers.impl;
+package io.kikirikou.modules.resteasy.managers.impl;
 
-import io.kikirkou.modules.resteasy.managers.decl.RestEasyResourceLocator;
+import io.kikirikou.modules.resteasy.managers.decl.RestEasyResourceLocator;
 import org.apache.tapestry5.ioc.ObjectLocator;
 import org.apache.tapestry5.ioc.services.ClassNameLocator;
 import org.jboss.resteasy.util.GetRestful;
