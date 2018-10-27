@@ -1,9 +1,12 @@
 package io.kikirikou.modules.boc.modules;
 
 
+import io.kikirikou.modules.boc.managers.decl.BocManager;
+import io.kikirikou.modules.boc.managers.impl.BocManagerImpl;
 import io.kikirikou.modules.boc.other.BocSymbolConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tapestry5.ioc.MappedConfiguration;
+import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.ImportModule;
 import org.apache.tapestry5.ioc.services.FactoryDefaults;
@@ -11,6 +14,12 @@ import org.apache.tapestry5.ioc.services.SymbolProvider;
 
 @ImportModule(value = {BocModule.class})
 public class BocModule {
+
+    public static void bind(ServiceBinder binder) {
+        binder.bind(BocManager.class,BocManagerImpl.class);
+    }
+
+
     @Contribute(SymbolProvider.class)
     @FactoryDefaults
     public static void contributeFactoryDefaults(MappedConfiguration<String, Object> configuration) {

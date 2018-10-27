@@ -10,7 +10,9 @@ import io.kikirikou.apps.pipelines.managers.impl.filters.*;
 import io.kikirikou.apps.pipelines.managers.impl.pipelinemodules.*;
 import io.kikirikou.apps.pipelines.other.FilterProcessor;
 import io.kikirikou.apps.pipelines.other.PipelineProcessor;
+import io.kikirikou.modules.boc.managers.decl.BocManager;
 import io.kikirikou.modules.bootstrap.other.constants.BootstrapConstants;
+import io.kikirikou.modules.common.managers.decl.StartupManager;
 import io.kikirkou.modules.resteasy.managers.decl.RestEasyResourceLocator;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
@@ -19,10 +21,15 @@ import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.apache.tapestry5.ioc.services.FactoryDefaults;
 import org.apache.tapestry5.ioc.services.SymbolProvider;
+import org.apache.tapestry5.json.JSONArray;
+import org.apache.tapestry5.json.JSONObject;
+
+import java.time.LocalDate;
+import java.util.function.Consumer;
 
 public class PipelinesModule {
     public static void bind(ServiceBinder binder) {
-    	binder.bind(PipelineExecutor.class, PipelineExecutorImpl.class);
+        binder.bind(PipelineExecutor.class, PipelineExecutorImpl.class);
         binder.bind(PipelineFactory.class, PipelineFactoryImpl.class);
         binder.bind(FilterManager.class, FilterManagerImpl.class);
     }
@@ -56,5 +63,19 @@ public class PipelinesModule {
     public static void contributeRestEasyResourceLocator(@Symbol(BootstrapConstants.APP_PACKAGE) String applicationPackage,
                                                          OrderedConfiguration<Object> configuration) {
         configuration.add("application", applicationPackage + ".rest");
+    }
+
+    @Contribute(StartupManager.class)
+    public static void contributeStartupManager(OrderedConfiguration<Runnable> configuration, BocManager bocManager) {
+        configuration.add("boc", () -> bocManager.getStatement("351012345671",
+                "AAIkNDU1MDk0NDUtNjdlOS00NzZiLWI5NDYtZjY2N2M2ZDQ2NWE5eeXilzC_EsAyj5jsJSPksSc8FH9zFEt6o6TyM38NqEZpGM-K1WBlk5wwHuvHPVkWa1wYMDL5p9uPKFfSx3GRe1NOKd5p8QWmJo4Tx64Af5Cc8UPMZnyWpVITpAUjvqi6XtwqXHpYHrPFLyVUr3ks-w",
+                "Subid000001-1540656099736",
+                LocalDate.now().minusYears(2),
+                LocalDate.now()).ifPresent(new Consumer<JSONArray>() {
+            @Override
+            public void accept(JSONArray jsonObject) {
+                System.out.println("Response is:" + jsonObject);
+            }
+        }));
     }
 }

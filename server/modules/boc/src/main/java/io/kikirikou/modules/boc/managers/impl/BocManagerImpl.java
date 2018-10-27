@@ -7,7 +7,9 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
+import io.kikirikou.modules.boc.managers.decl.BocManager;
 import org.apache.tapestry5.ioc.annotations.Symbol;
+import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
 import org.slf4j.Logger;
 
@@ -17,7 +19,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class BocManagerImpl {
+public class BocManagerImpl implements BocManager {
 
 	private final String clientId;
 	private final String clientSecret;
@@ -38,13 +40,13 @@ public class BocManagerImpl {
 		this.httpClient = httpClient;
 		this.log = log;
 
-		df = DateTimeFormatter.ofPattern("DD/mm/yyyy");
+		df = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	}
 
-	public Optional<JSONObject> getStatement(String accountId, String token,
-			String subscriptionId,
-			LocalDate from,
-			LocalDate to) {
+	public Optional<JSONArray> getStatement(String accountId, String token,
+											 String subscriptionId,
+											 LocalDate from,
+											 LocalDate to) {
 
 		String url = this.baseUrl + "/v1/accounts/" + accountId + "/statement";
 
@@ -69,7 +71,7 @@ public class BocManagerImpl {
 
 		try (Response res =  this.httpClient.newCall(req).execute()) {
 			if (res.isSuccessful()) {
-				return Optional.of(new JSONObject(res.body().string()));
+				return Optional.of(new JSONArray(res.body().string()));
 			} else {
 				log.error("Statement request not successful. Code: {}", res.code());
 				return Optional.empty();
