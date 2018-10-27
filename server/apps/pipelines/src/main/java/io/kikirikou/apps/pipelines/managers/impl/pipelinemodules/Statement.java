@@ -9,13 +9,13 @@ import java.time.LocalDate;
 import java.util.stream.Stream;
 
 public class Statement implements PipelineProcessor {
+	
     @Override
     public Stream<JSONObject> process(Stream<JSONObject> stream, JSONObject config) {
         LocalDate.parse(config.getString("from"));
         LocalDate.parse(config.getString("to"));
-        String token = config.getString("token");
-
-
+        String token = config.getString("token");        
+        String account = config.getString("account");
 
         //Do you get request
 

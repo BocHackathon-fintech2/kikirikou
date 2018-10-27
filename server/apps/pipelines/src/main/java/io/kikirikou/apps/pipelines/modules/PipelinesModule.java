@@ -1,8 +1,10 @@
 package io.kikirikou.apps.pipelines.modules;
 
 import io.kikirikou.apps.pipelines.managers.decl.FilterManager;
+import io.kikirikou.apps.pipelines.managers.decl.PipelineExecutor;
 import io.kikirikou.apps.pipelines.managers.decl.PipelineFactory;
 import io.kikirikou.apps.pipelines.managers.impl.FilterManagerImpl;
+import io.kikirikou.apps.pipelines.managers.impl.PipelineExecutorImpl;
 import io.kikirikou.apps.pipelines.managers.impl.PipelineFactoryImpl;
 import io.kikirikou.apps.pipelines.managers.impl.filters.*;
 import io.kikirikou.apps.pipelines.managers.impl.pipelinemodules.*;
@@ -20,6 +22,7 @@ import org.apache.tapestry5.ioc.services.SymbolProvider;
 
 public class PipelinesModule {
     public static void bind(ServiceBinder binder) {
+    	binder.bind(PipelineExecutor.class, PipelineExecutorImpl.class);
         binder.bind(PipelineFactory.class, PipelineFactoryImpl.class);
         binder.bind(FilterManager.class, FilterManagerImpl.class);
     }
