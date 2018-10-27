@@ -1,9 +1,9 @@
 package io.kikirikou.apps.pipelines.managers.decl;
 
-import java.util.concurrent.CompletableFuture;
-
 import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
+
+import java.util.concurrent.CompletableFuture;
 
 public interface PipelineExecutor {
 

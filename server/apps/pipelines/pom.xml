@@ -23,7 +23,7 @@
         </dependency>
         <dependency>
             <groupId>io.kikirikou</groupId>
-            <artifactId>http</artifactId>
+            <artifactId>boc</artifactId>
             <version>0.1.0-SNAPSHOT</version>
         </dependency>
         <dependency>

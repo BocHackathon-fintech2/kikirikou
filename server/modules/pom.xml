@@ -17,5 +17,6 @@
         <module>http</module>
         <module>jetty</module>
         <module>resteasy</module>
+        <module>boc</module>
     </modules>
 </project>
