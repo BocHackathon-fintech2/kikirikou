@@ -16,5 +16,6 @@ public class BocModule {
     public static void contributeFactoryDefaults(MappedConfiguration<String, Object> configuration) {
         configuration.add(BocSymbolConstants.CLIENT_ID, StringUtils.EMPTY);
         configuration.add(BocSymbolConstants.CLIENT_SECRET,StringUtils.EMPTY);
+        configuration.add(BocSymbolConstants.BASE_URL, "https://sandbox-apis.bankofcyprus.com/df-boc-org-sb/sb/psd2");
     }
 }
