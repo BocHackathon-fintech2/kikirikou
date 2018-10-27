@@ -18,5 +18,6 @@
         <module>jetty</module>
         <module>resteasy</module>
         <module>boc</module>
+        <module>persistence</module>
     </modules>
 </project>

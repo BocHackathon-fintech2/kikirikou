@@ -28,7 +28,7 @@ public class StringTable implements PipelineProcessor {
 
         if(collect.isEmpty())
             return Stream.empty();
-        
+
         List<String> firstRow = collect.iterator().next();
         int[] ints = IntStream.range(0, firstRow.size()).
                 map(i -> collect.stream().
