@@ -6,7 +6,9 @@ import org.apache.tapestry5.ioc.services.TypeCoercer;
 import org.apache.tapestry5.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class StringTable implements PipelineProcessor {
@@ -19,10 +21,24 @@ public class StringTable implements PipelineProcessor {
     @Override
     public Stream<JSONObject> process(Stream<JSONObject> stream, JSONObject config) {
         String[] columns = config.getJSONArray("columns").toList().stream().map(o -> (String)o).toArray(String[]::new);
-        String collect = stream.map(JsonUtils::flatten).map(map -> Arrays.stream(columns).
+        List<List<String>> collect = stream.map(JsonUtils::flatten).map(map -> Arrays.stream(columns).
                 map(s -> typeCoercer.coerce(map.get(s), String.class)).
-                collect(Collectors.joining("|"))).collect(Collectors.joining("\n"));
+                collect(Collectors.toList())).
+                collect(Collectors.toList());
 
-        return Stream.of(new JSONObject("value",collect));
+
+        List<String> firstRow = collect.iterator().next();
+        int[] ints = IntStream.range(0, firstRow.size()).
+                map(i -> collect.stream().
+                        mapToInt(strings -> strings.get(i).length()).max().
+                        orElseThrow(IllegalStateException::new)).toArray();
+
+        String value = collect.stream().
+                map(strings -> IntStream.range(0, strings.size()).
+                        mapToObj(i -> String.format("%" + ints[i] + "s", strings.get(i))).
+                        collect(Collectors.joining(" | "))).
+                collect(Collectors.joining("\n"));
+
+        return Stream.of(new JSONObject("value",value));
     }
 }

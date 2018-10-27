@@ -2,22 +2,22 @@ package io.kikirikou.apps.pipelines.modules;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import io.kikirikou.modules.bootstrap.other.constants.BootstrapConstants;
+import io.kikirkou.modules.resteasy.managers.decl.RestEasyResourceLocator;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.Local;
+import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.apache.tapestry5.ioc.internal.util.CollectionFactory;
 import org.apache.tapestry5.ioc.services.FactoryDefaults;
 import org.apache.tapestry5.ioc.services.SymbolProvider;
-import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
 
-import io.kikirikou.apps.pipelines.enums.Aggregator;
 import io.kikirikou.apps.pipelines.managers.decl.FilterManager;
 import io.kikirikou.apps.pipelines.managers.decl.PipelineFactory;
 import io.kikirikou.apps.pipelines.managers.impl.FilterManagerImpl;
@@ -95,5 +95,11 @@ public class PipelinesModule {
                 System.out.println("Result is:" + factory.build(data.stream(),config).collect(Collectors.toList()));
             }
         },"after:*");
+    }
+
+    @Contribute(RestEasyResourceLocator.class)
+    public static void contributeRestEasyResourceLocator(@Symbol(BootstrapConstants.APP_PACKAGE) String applicationPackage,
+                                                         OrderedConfiguration<Object> configuration) {
+        configuration.add("application", applicationPackage + ".rest");
     }
 }

@@ -15,5 +15,7 @@
         <module>common</module>
         <module>bootstrap</module>
         <module>http</module>
+        <module>jetty</module>
+        <module>resteasy</module>
     </modules>
 </project>
