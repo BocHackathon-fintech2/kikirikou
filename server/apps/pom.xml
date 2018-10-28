@@ -13,6 +13,7 @@
     <name>apps-parent</name>
     <modules>
         <module>pipelines</module>
+        <module>backoffice</module>
     </modules>
 
     <properties>
