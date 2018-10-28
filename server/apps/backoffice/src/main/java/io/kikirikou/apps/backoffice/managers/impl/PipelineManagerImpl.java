@@ -56,7 +56,9 @@ public class PipelineManagerImpl extends OneShotLock implements PipelineManager,
 
 	@Override
 	public JSONObject getAll() {
-		return new JSONObject(this.cache);
+		JSONObject o = new JSONObject();
+		o.putAll(this.cache);
+		return o;
 	}
 
 	@Override
