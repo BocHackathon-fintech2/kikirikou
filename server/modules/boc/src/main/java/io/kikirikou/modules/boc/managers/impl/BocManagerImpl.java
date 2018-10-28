@@ -1,6 +1,7 @@
 package io.kikirikou.modules.boc.managers.impl;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -14,6 +15,7 @@ import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
 import org.slf4j.Logger;
 
+import io.kikirikou.modules.boc.enums.TransactionType;
 import io.kikirikou.modules.boc.managers.decl.BocManager;
 import io.kikirikou.modules.boc.other.BocSymbolConstants;
 import okhttp3.HttpUrl;
@@ -29,6 +31,7 @@ public class BocManagerImpl implements BocManager {
 	private final OkHttpClient httpClient;
 	private final DateTimeFormatter df;
 	private final Logger log;
+
 
 	public BocManagerImpl(
 			@Symbol(BocSymbolConstants.CLIENT_ID) String clientId,
@@ -46,9 +49,9 @@ public class BocManagerImpl implements BocManager {
 	}
 
 	public Optional<Collection<JSONObject>> getStatement(String accountId, String token,
-														 String subscriptionId,
-														 LocalDate from,
-														 LocalDate to) {
+			String subscriptionId,
+			LocalDate from,
+			LocalDate to) {
 
 		String url = this.baseUrl + "/v1/accounts/" + accountId + "/statement";
 
@@ -88,5 +91,10 @@ public class BocManagerImpl implements BocManager {
 			return Optional.empty();
 		}
 
-	} 
+	}
+
+	@Override
+	public Optional<Collection<JSONObject>> createTransfer(String fromAccountId, String toAccountId, TransactionType transactionType, BigDecimal amount) {
+		throw new RuntimeException();
+	}
 }

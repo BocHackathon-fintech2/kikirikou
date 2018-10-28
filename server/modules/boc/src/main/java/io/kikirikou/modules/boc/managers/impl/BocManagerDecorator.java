@@ -1,18 +1,49 @@
 package io.kikirikou.modules.boc.managers.impl;
 
+import io.kikirikou.modules.boc.enums.TransactionType;
 import io.kikirikou.modules.boc.managers.decl.BocManager;
 import io.kikirikou.modules.persistence.managers.decl.QueryFactoryProvider;
 import io.kikirikou.modules.persistence.other.CustomDSLContext;
 import org.apache.tapestry5.json.JSONObject;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
 import static io.kikirikou.modules.persistence.jooq.Tables.TRANSACTIONS;
 
 public class BocManagerDecorator implements BocManager {
+	private static final JSONObject TRANSFER_TEMPLATE = new JSONObject("{  \n" +
+			"   \"id\":\"1234 \n" +
+			"   \"dcInd\":\"CY123\",\n" +
+			"   \"transactionAmount\":{  \n" +
+			"      \"amount\":1000,\n" +
+			"      \"currency\":\"EUR\"\n" +
+			"   },\n" +
+			"   \"description\":\"NEFT TRANSACTION\",\n" +
+			"   \"postingDate\":\"20/11/2017\",\n" +
+			"   \"valueDate\":\"20/12/2017\",\n" +
+			"   \"transactionType\":\"NEFT\",\n" +
+			"   \"merchant\":{  \n" +
+			"      \"name\":\"DEMETRIS KOSTA\",\n" +
+			"      \"address\":{  \n" +
+			"         \"line1\":\"A-123\",\n" +
+			"         \"line2\":\"APARTMENT\",\n" +
+			"         \"line3\":\"STREET\",\n" +
+			"         \"line4\":\"AREA\",\n" +
+			"         \"city\":\"CITY\",\n" +
+			"         \"postalcode\":\"CY-01\",\n" +
+			"         \"state\":\"STATE\",\n" +
+			"         \"country\":\"CYPRUS\"\n" +
+			"      }\n" +
+			"   },\n" +
+			"   \"terminalId\":\"12345\"\n" +
+			"}");
+	
     private final QueryFactoryProvider queryFactoryProvider;
 
     public BocManagerDecorator(BocManager delegate,QueryFactoryProvider queryFactoryProvider) {
@@ -27,4 +58,33 @@ public class BocManagerDecorator implements BocManager {
                 where(TRANSACTIONS.ACCOUNT_ID.eq(accountId)).
                 fetch(TRANSACTIONS.TRANSACTION)));
     }
+
+	@Override
+	public Optional<Collection<JSONObject>> createTransfer(String fromAccountId, String toAccountId,
+			TransactionType transactionType, BigDecimal amount) {
+		LocalDate date = LocalDate.now();
+		JSONObject fromTransaction = TRANSFER_TEMPLATE.copy();
+		fromTransaction.getJSONObject("transactionAmount").put("amount", amount);
+		fromTransaction.put("transactionType", transactionType.name());
+		fromTransaction.put("postingDate",date.toString());
+		fromTransaction.put("valueDate",date.toString());
+		
+		JSONObject toTransaction = fromTransaction.copy();
+		
+		queryFactoryProvider.build(new Function<CustomDSLContext, Void>() {
+			@Override
+			public Void apply(CustomDSLContext customDSLContext) {
+				customDSLContext.insertInto(TRANSACTIONS).set(TRANSACTIONS.ACCOUNT_ID,fromAccountId).set(TRANSACTIONS.TRANSACTION,fromTransaction).execute();
+				customDSLContext.insertInto(TRANSACTIONS).set(TRANSACTIONS.ACCOUNT_ID,toAccountId).set(TRANSACTIONS.TRANSACTION,toTransaction).execute();
+
+				return null;
+			}
+		});
+		
+		List<JSONObject> transactions = new ArrayList<>();
+		transactions.add(fromTransaction);
+		transactions.add(toTransaction);
+		
+		return Optional.of(transactions);
+	}
 }

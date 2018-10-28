@@ -27,6 +27,7 @@ import io.kikirikou.apps.pipelines.managers.impl.filters.NotEqualsFilter;
 import io.kikirikou.apps.pipelines.managers.impl.pipelinemodules.Aggregate;
 import io.kikirikou.apps.pipelines.managers.impl.pipelinemodules.Console;
 import io.kikirikou.apps.pipelines.managers.impl.pipelinemodules.Filter;
+import io.kikirikou.apps.pipelines.managers.impl.pipelinemodules.Payment;
 import io.kikirikou.apps.pipelines.managers.impl.pipelinemodules.Sms;
 import io.kikirikou.apps.pipelines.managers.impl.pipelinemodules.Statement;
 import io.kikirikou.apps.pipelines.managers.impl.pipelinemodules.StringTable;
@@ -57,8 +58,9 @@ public class PipelinesModule {
         configuration.addInstance("filter", Filter.class);
         configuration.addInstance("statement", Statement.class);
         configuration.addInstance("console", Console.class);
-        configuration.addInstance("stringtable", StringTable.class);
+        configuration.addInstance("table", StringTable.class);
         configuration.addInstance("sms", Sms.class);
+        configuration.addInstance("payment", Payment.class);
     }
 
     @Contribute(FilterManager.class)

@@ -25,7 +25,7 @@ public class Sms implements PipelineProcessor {
 
 	@Override
 	public Stream<JSONObject> process(Stream<JSONObject> stream, JSONObject config) {
-		String[] phones = config.getJSONArray("phones").toList().stream().map(o -> (String)o).toArray(String[]::new);
+		String[] phones = config.getString("phones").split(",");
 		String[] columns = config.getJSONArray("columns").toList().stream().map(o -> (String)o).toArray(String[]::new);
 		String text = config.getString("text");
 
