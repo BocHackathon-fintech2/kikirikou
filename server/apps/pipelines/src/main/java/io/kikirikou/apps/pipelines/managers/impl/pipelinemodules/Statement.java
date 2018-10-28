@@ -30,8 +30,4 @@ public class Statement implements PipelineProcessor {
                 stream.filter(jsonObject -> false),
                 transactionStream);
     }
-
-    public static void main(String[] args) {
-        System.out.println("Hello:" + LocalDate.now().toString());
-    }
 }

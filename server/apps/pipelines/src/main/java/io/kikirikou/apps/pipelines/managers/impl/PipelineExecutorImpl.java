@@ -51,8 +51,7 @@ public class PipelineExecutorImpl implements PipelineExecutor {
 
 		CompletableFuture<JSONArray> fut = CompletableFuture.supplyAsync(()-> {
 			JSONArray data = payload.getJSONArray("data");
-			final JSONArray config = payload.getJSONArray("config");
-
+			JSONArray config = payload.getJSONArray("config");
 			return JSONArray.from(pipelineFactory.build(toCollection(data).stream(),
 					toCollection(config)).
 					collect(Collectors.toList()));

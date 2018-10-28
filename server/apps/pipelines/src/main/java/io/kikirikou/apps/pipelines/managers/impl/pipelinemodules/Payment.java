@@ -12,12 +12,10 @@ import io.kikirikou.modules.boc.enums.TransactionType;
 import io.kikirikou.modules.boc.managers.decl.BocManager;
 
 public class Payment implements PipelineProcessor {
-    private final Logger logger;
     private final BocManager bocManager;
 	private final TypeCoercer typeCoercer;
 
     public Payment(Logger logger, BocManager bocManager, TypeCoercer typeCoercer) {
-        this.logger = logger;
         this.bocManager = bocManager;
         this.typeCoercer = typeCoercer;
     }
@@ -28,8 +26,7 @@ public class Payment implements PipelineProcessor {
     	String toAccountId = config.getString("to");
     	BigDecimal amount = typeCoercer.coerce(config.get("amount"), BigDecimal.class);
     	TransactionType transactionType = typeCoercer.coerce(config.get("type"), TransactionType.class);
-    			
-    	this.bocManager.createTransfer(fromAccountId, toAccountId, transactionType, amount);
-        return stream.peek(jsonObject -> logger.info("{}",jsonObject));
+
+    	return stream.peek(jsonObject -> bocManager.createTransfer(fromAccountId, toAccountId, transactionType, amount));
     }
 }

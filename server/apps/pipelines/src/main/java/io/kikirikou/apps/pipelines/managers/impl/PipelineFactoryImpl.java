@@ -20,7 +20,6 @@ public class PipelineFactoryImpl implements PipelineFactory {
     public Stream<JSONObject> build(Stream<JSONObject> stream, Collection<JSONObject> config) {
         for(JSONObject conf:config)
             stream = configuration.get(conf.getString("type")).process(stream, conf.has("config") ? conf.getJSONObject("config") : EMPTY_CONFIG);
-
         return stream;
     }
 }

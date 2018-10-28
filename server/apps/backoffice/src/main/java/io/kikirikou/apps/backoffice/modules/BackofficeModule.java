@@ -34,7 +34,8 @@ public class BackofficeModule {
 
     @Contribute(RestEasyResourceLocator.class)
     public static void contributeRestEasyResourceLocator(@Symbol(BootstrapConstants.APP_PACKAGE) String applicationPackage,
-                                                         OrderedConfiguration<Object> configuration) {
+                                                         OrderedConfiguration<Object> configuration,
+                                                         PipelineManager pipelineManager) {
         configuration.add("application", applicationPackage + ".rest");
     }
 }
