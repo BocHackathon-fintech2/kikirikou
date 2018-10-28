@@ -12,13 +12,16 @@ import org.apache.tapestry5.ioc.services.ApplicationDefaults;
 import org.apache.tapestry5.ioc.services.FactoryDefaults;
 import org.apache.tapestry5.ioc.services.SymbolProvider;
 
+import io.kikirikou.apps.backoffice.managers.decl.PipelineExecutor;
 import io.kikirikou.apps.backoffice.managers.decl.PipelineManager;
+import io.kikirikou.apps.backoffice.managers.impl.PipelineExecutorImpl;
 import io.kikirikou.apps.backoffice.managers.impl.PipelineManagerImpl;
 import io.kikirikou.modules.bootstrap.other.constants.BootstrapConstants;
 
 public class BackofficeModule {
     public static void bind(ServiceBinder binder) {
     	binder.bind(PipelineManager.class, PipelineManagerImpl.class);
+    	binder.bind(PipelineExecutor.class, PipelineExecutorImpl.class).eagerLoad();
     }
 
     @Contribute(SymbolProvider.class)

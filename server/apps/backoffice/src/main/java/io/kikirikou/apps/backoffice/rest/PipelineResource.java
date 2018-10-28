@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
 import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.apache.tapestry5.json.JSONObject;
 
+import io.kikirikou.apps.backoffice.managers.decl.PipelineExecutor;
 import io.kikirikou.apps.backoffice.managers.decl.PipelineManager;
 import io.kikirikou.apps.backoffice.other.ApplicationSymbolConstants;
 import okhttp3.OkHttpClient;
@@ -26,13 +27,11 @@ import okhttp3.RequestBody;
 public class PipelineResource {
 	
 	private final PipelineManager pipelineManager;
-	private final OkHttpClient httpClient;
-	private final String pipelinesUrl;
+	private final PipelineExecutor pipelineExecutor;
 
-	public PipelineResource(@Symbol(ApplicationSymbolConstants.PIPELINES_URL) String pipelinesUrl, PipelineManager pipelineManager, OkHttpClient httpClient) {
+	public PipelineResource(PipelineExecutor pipelineExecutor, PipelineManager pipelineManager) {
 		this.pipelineManager = pipelineManager;
-		this.httpClient = httpClient;
-		this.pipelinesUrl = pipelinesUrl;
+		this.pipelineExecutor = pipelineExecutor;
 	}
 
 	@GET
@@ -59,14 +58,7 @@ public class PipelineResource {
 	@Path("/run")
 	@POST
 	public Response execute(JSONObject payload) throws IOException {
-		RequestBody body = RequestBody.create(okhttp3.MediaType.parse(MediaType.APPLICATION_JSON), payload.toCompactString());
-
-		Request req = new Request.Builder()
-				.url(this.pipelinesUrl)
-				.post(body).build();
-		
-		okhttp3.Response res = this.httpClient.newCall(req).execute();
-		res.body().close();
-		return Response.status(res.code()).build();
+		int res = this.pipelineExecutor.runPipeline(payload);
+		return Response.status(res).build();
 	}
 }
