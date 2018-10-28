@@ -4,13 +4,12 @@ import io.kikirikou.modules.boc.enums.TransactionType;
 import io.kikirikou.modules.boc.managers.decl.BocManager;
 import io.kikirikou.modules.persistence.managers.decl.QueryFactoryProvider;
 import io.kikirikou.modules.persistence.other.CustomDSLContext;
+import org.apache.tapestry5.ioc.internal.util.CollectionFactory;
 import org.apache.tapestry5.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -18,7 +17,7 @@ import static io.kikirikou.modules.persistence.jooq.Tables.TRANSACTIONS;
 
 public class BocManagerDecorator implements BocManager {
 	private static final JSONObject TRANSFER_TEMPLATE = new JSONObject("{  \n" +
-			"   \"id\":\"1234 \n" +
+			"   \"id\":\"12345\",\n" +
 			"   \"dcInd\":\"CY123\",\n" +
 			"   \"transactionAmount\":{  \n" +
 			"      \"amount\":1000,\n" +
@@ -43,10 +42,9 @@ public class BocManagerDecorator implements BocManager {
 			"   },\n" +
 			"   \"terminalId\":\"12345\"\n" +
 			"}");
-	
     private final QueryFactoryProvider queryFactoryProvider;
 
-    public BocManagerDecorator(BocManager delegate,QueryFactoryProvider queryFactoryProvider) {
+    public 	BocManagerDecorator(BocManager delegate,QueryFactoryProvider queryFactoryProvider) {
         this.queryFactoryProvider = queryFactoryProvider;
     }
 
@@ -71,20 +69,11 @@ public class BocManagerDecorator implements BocManager {
 		
 		JSONObject toTransaction = fromTransaction.copy();
 		
-		queryFactoryProvider.build(new Function<CustomDSLContext, Void>() {
-			@Override
-			public Void apply(CustomDSLContext customDSLContext) {
-				customDSLContext.insertInto(TRANSACTIONS).set(TRANSACTIONS.ACCOUNT_ID,fromAccountId).set(TRANSACTIONS.TRANSACTION,fromTransaction).execute();
-				customDSLContext.insertInto(TRANSACTIONS).set(TRANSACTIONS.ACCOUNT_ID,toAccountId).set(TRANSACTIONS.TRANSACTION,toTransaction).execute();
+		return Optional.of(queryFactoryProvider.build((Function<CustomDSLContext, Collection<JSONObject>>) customDSLContext -> {
+			customDSLContext.insertInto(TRANSACTIONS).set(TRANSACTIONS.ACCOUNT_ID,fromAccountId).set(TRANSACTIONS.TRANSACTION,fromTransaction).execute();
+			customDSLContext.insertInto(TRANSACTIONS).set(TRANSACTIONS.ACCOUNT_ID,toAccountId).set(TRANSACTIONS.TRANSACTION,toTransaction).execute();
 
-				return null;
-			}
-		});
-		
-		List<JSONObject> transactions = new ArrayList<>();
-		transactions.add(fromTransaction);
-		transactions.add(toTransaction);
-		
-		return Optional.of(transactions);
+			return CollectionFactory.newList(fromTransaction, toTransaction);
+		}));
 	}
 }

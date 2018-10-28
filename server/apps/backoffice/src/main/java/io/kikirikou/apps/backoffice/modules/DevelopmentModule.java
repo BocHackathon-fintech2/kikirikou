@@ -19,7 +19,7 @@ public class DevelopmentModule {
     @ApplicationDefaults
     public static void contributeFactoryDefaults(MappedConfiguration<String, Object> configuration) {
     	configuration.add(ApplicationSymbolConstants.DB_PATH, System.getProperty("java.io.tmpdir") + "/kikirikou.db");
-    	configuration.add(ApplicationSymbolConstants.PIPELINES_URL, "http://127.0.0.1:8080/pipeline");
+    	configuration.add(ApplicationSymbolConstants.PIPELINES_URL, "http://127.0.0.1:8080/api/pipeline");
     	configuration.add(JettySymbolConstants.BIND_ADDRESS, "0.0.0.0");
     	
     	configuration.add(BocSymbolConstants.CLIENT_SECRET,"L1bI3xM0gJ3tU5lR3fM6lI1uS4aM1uV8mN1fT2sD1pS5uE5uB2");

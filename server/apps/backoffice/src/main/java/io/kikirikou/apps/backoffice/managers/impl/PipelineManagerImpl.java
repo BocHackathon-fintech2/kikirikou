@@ -10,7 +10,6 @@ import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.apache.tapestry5.ioc.internal.util.OneShotLock;
 import org.apache.tapestry5.ioc.services.RegistryShutdownHub;
 import org.apache.tapestry5.json.JSONObject;
-import org.jetbrains.annotations.NotNull;
 import org.mapdb.DB;
 import org.mapdb.DBMaker;
 import org.mapdb.DataInput2;
@@ -78,12 +77,12 @@ public class PipelineManagerImpl extends OneShotLock implements PipelineManager,
 	}
 
 	@Override
-	public void serialize(@NotNull DataOutput2 out, @NotNull JSONObject value) throws IOException {
+	public void serialize(DataOutput2 out, JSONObject value) throws IOException {
 		out.writeUTF(value.toCompactString());
 	}
 
 	@Override
-	public JSONObject deserialize(@NotNull DataInput2 input, int available) throws IOException {
+	public JSONObject deserialize(DataInput2 input, int available) throws IOException {
 		return new JSONObject(input.readUTF());
 	}
 }
