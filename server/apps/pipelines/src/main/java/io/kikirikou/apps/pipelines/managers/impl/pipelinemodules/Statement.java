@@ -18,11 +18,9 @@ public class Statement implements PipelineProcessor {
     public Stream<JSONObject> process(Stream<JSONObject> stream, JSONObject config) {
         LocalDate from = LocalDate.parse(config.getString("from"));
         LocalDate to = LocalDate.parse(config.getString("to"));
-        String token = config.getString("token");        
         String account = config.getString("account");
-        String subscriptionId = config.getString("subscriptionId");
-
-        Stream<JSONObject> transactionStream = bocManager.getStatement(account, token, subscriptionId, from, to).
+        
+        Stream<JSONObject> transactionStream = bocManager.getStatement(account, "", "", from, to).
                 map(Collection::stream).
                 orElseThrow(IllegalAccessError::new);
 

@@ -44,7 +44,7 @@ public class PipelineExecutorImpl implements PipelineExecutor {
 	}
 	
 	private void runTransactionTriggers(String accountId, JSONObject transaction) {
-		
+	    
 		JSONObject all = pipelineManager.getAll();
 		all.keys().stream().map(new Function<String, JSONObject>() {
 		    @Override
@@ -58,7 +58,7 @@ public class PipelineExecutorImpl implements PipelineExecutor {
 		        if(!trigger.getString("type").equalsIgnoreCase("transaction"))
 		            return false;
 
-		        return trigger.getJSONObject("configuration").getString("account").equals(accountId);
+		        return trigger.getJSONObject("config").getString("account").equals(accountId);
 		    }
 		}).map(new Function<JSONObject, JSONObject>() {
 		    @Override

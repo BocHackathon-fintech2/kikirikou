@@ -26,6 +26,8 @@ public class StringTable implements PipelineProcessor {
                 collect(Collectors.toList())).
                 collect(Collectors.toList());
 
+        System.out.println("String table:" + collect);
+
         if(collect.isEmpty())
             return Stream.empty();
 
